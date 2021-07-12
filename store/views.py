@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .forms import productform
 
 
 def store(request):
@@ -171,3 +172,43 @@ def adminmain(request):
         return render(request, 'store/dashboard.html')
     else:
         return redirect('store')
+
+
+def productm(request):
+    products = Product.objects.all()
+
+    return render(request, 'store/product.html', {'products': products})
+
+
+def addproduct(request):
+    form = productform(request.POST, request.FILES)
+    if request.method == 'POST':
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('productm')
+
+    return render(request, 'store/productform.html', {'form': form})
+
+
+def updateproduct(request, pk):
+    product = Product.objects.get(id=pk)
+    form = productform(instance=product)
+    if request.method == 'POST':
+        form = productform(request.POST, request.FILES, instance=product)
+
+        if form.is_valid():
+            form.save()
+            return redirect('productm')
+
+    return render(request, 'store/updateform.html', {'form': form})
+
+
+def deleteproduct(request, pk):
+    product = Product.objects.get(id=pk)
+    if request.method == "POST":
+        product.delete()
+        return redirect('productm')
+
+    return render(request, 'store/deleteproduct.html', {'product': product})

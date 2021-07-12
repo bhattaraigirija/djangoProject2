@@ -1,0 +1,13 @@
+{% extends 'store/AdminMain.html' %}
+{% load static %}
+{% block acontent %}
+
+    <div class="box-element" id="form-wrapper">
+        <form id="form" onsubmit="alert('Product updated successfully')" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input id="form-button" class="btn btn-success btn-block" type="submit" value="Update">
+        </form>
+    </div>
+{% endblock acontent %}

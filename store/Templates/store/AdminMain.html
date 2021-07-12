@@ -3,15 +3,18 @@
 <head>
 
 
-    <title>HerbShop</title>
+    <title>HerbShop admin</title>
+
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: saddlebrown;">
-    <a class="navbar-brand" href="{% url 'store' %}">E-HerbShop</a>
+    <a class="navbar-brand" href="{% url 'administration' %}">E-HerbShop Admin</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -24,72 +27,31 @@
                 <label class="badge badge-pill badge-danger" style="margin-top: 15px;">Hi {{ request.user }} </label>
 
             </li>
-            <li>
-                <form method="get" action="/search" class="form-inline">
-                    <input class="form-control mr-sm-2" placeholder="Enter Disease name" aria-label="Search" id="search"
-                           name="search" required>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search for herb</button>
-                    <button class="btn btn-outline-success my-2 my-sm-0" name="hospital" type="submit">Search for
-                        hospital
-                    </button>
-                </form>
-            </li>
+
 
         </ul>
         <div id="log" class="form-inline my-2 my-lg-0">
 
             {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
-            {% if request.user.is_superuser %}
-            <a href="{% url 'administration' %}" class="btn btn-warning">Admin mode</a>
-            {% endif %}
+                <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
+                <a href="{% url 'store' %}" class="btn btn-warning">User mode</a>
+
             {% else %}
-            <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
-            <a href="{% url 'register' %}" class="btn btn-warning">Register</a>
+                <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+
             {% endif %}
 
-
-            <a href="{% url 'cart' %}">
-                <img id="cart-icon" src="{% static 'images/cart.png' %}">
-            </a>
-            <p id="cart-total">{{ cartItems }}</p>
 
         </div>
     </div>
 </nav>
 
-
 <div class="container">
-    {% block content %}
+    {% block acontent %}
 
-    {% endblock content %}
-
+    {% endblock acontent %}
 
 </div>
-<section class="">
-    <!-- Footer -->
-    <footer class="text-center text-white" style="background-color: saddlebrown;">
-        <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <!-- Section: CTA -->
-            <section class="">
-                <p class="d-flex justify-content-center align-items-center">
-                    <span class="me-3">Green saves your life.</span>
-
-                </p>
-            </section>
-
-        </div>
-
-
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2021 Copyright. All rights reserved. Developed by:
-            <a class="text-white" href="https:facebook.com/nischal.khatiwada.75">Nischal Khatiwada</a>
-        </div>
-
-    </footer>
-
-</section>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

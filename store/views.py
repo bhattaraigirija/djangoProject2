@@ -151,3 +151,23 @@ def loginpage(request):
 def logoutuser(request):
     logout(request)
     return redirect('login')
+
+
+def search(request):
+    query = request.GET['search']
+    if 'hospital' in request.GET:
+        hospitals = Hospital.objects.filter(disease__icontains=query)
+        return render(request, 'store/hsearch.html', {'hospitals': hospitals})
+
+
+    else:
+        allPosts = Product.objects.filter(description__icontains=query)
+        params = {'allPosts': allPosts}
+        return render(request, 'store/search.html', params)
+
+
+def adminmain(request):
+    if request.user.is_superuser:
+        return render(request, 'store/dashboard.html')
+    else:
+        return redirect('store')

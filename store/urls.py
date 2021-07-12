@@ -9,6 +9,8 @@ urlpatterns = [
     path('processOrder/', views.processOrder, name='processOrder'),
     path('login/', views.loginpage, name='login'),
     path('register/', views.register, name='register'),
-    path('logout/', views.logoutuser, name='logout')
+    path('logout/', views.logoutuser, name='logout'),
+    path('search/', views.search, name='search'),
+    path('administration/', views.adminmain, name='administration')
 
 ]

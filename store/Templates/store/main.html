@@ -1,0 +1,116 @@
+{% load static %}
+<html>
+<head>
+
+
+    <title>HerbShop</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: saddlebrown;">
+    <a class="navbar-brand" href="{% url 'store' %}">E-HerbShop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class=>
+                <label class="badge badge-pill badge-danger" style="margin-top: 15px;">Hi {{ request.user }} </label>
+
+            </li>
+            <li>
+                <form method="get" action="/search" class="form-inline">
+                    <input class="form-control mr-sm-2" placeholder="Enter Disease name" aria-label="Search" id="search"
+                           name="search" required>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search for herb</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" name="hospital" type="submit">Search for
+                        hospital
+                    </button>
+                </form>
+            </li>
+
+        </ul>
+        <div id="log" class="form-inline my-2 my-lg-0">
+
+
+            <a href="">
+                <img id="cart-icon" src="{% static 'images/cart.png' %}">
+            </a>
+            <p id="cart-total">{{ cartItems }}</p>
+
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    {% block content %}
+
+    {% endblock content %}
+
+
+</div>
+<section class="">
+    <!-- Footer -->
+    <footer class="text-center text-white" style="background-color: saddlebrown;">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: CTA -->
+            <section class="">
+                <p class="d-flex justify-content-center align-items-center">
+                    <span class="me-3">Green saves your life.</span>
+
+                </p>
+            </section>
+
+        </div>
+
+
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright. All rights reserved. Developed by:
+            <a class="text-white" href="https:facebook.com/nischal.khatiwada.75">Nischal Khatiwada</a>
+        </div>
+
+    </footer>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<script type="text/javascript">
+    var user = '{{ request.user }}';
+
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getToken('csrftoken');
+</script>
+</body>
+</html>

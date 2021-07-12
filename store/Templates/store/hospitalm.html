@@ -1,0 +1,63 @@
+{% extends 'store/AdminMain.html' %}
+{% load static %}
+{% block acontent %}
+
+    <br>
+
+
+
+    <div class="row">
+
+
+        <a href="{% url 'hospitalform' %}" class="btn btn-primary btn-lg btn-block" role="button"
+        >Add new hospital</a>
+
+
+
+
+
+        {% for hospital in hospitals %}
+
+
+            <div class="col-lg-4">
+                <img class="thumbnail" src="{{ hospital.image.url }}">
+                <div class="box-element product">
+                    <h6>{{ hospital.name }}</h6>
+                    <hr>
+
+
+                    <a href="{% url 'updatehospital' hospital.id %}" class=" btn btn-outline-success btn-dark"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseExample">Update</a>
+                    <a href="{% url 'deletehospital' hospital.id %}" class=" btn btn-outline-success btn-dark"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseExample">Delete</a>
+
+                    <div class="collapse" id="n{{ forloop.counter }}">
+                        <div class="box-element" id="form-wrapper">
+                            <form id="form" method="post" enctype="multipart/form-data">
+                                {{ form.as_p }}
+
+
+                                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Update">
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+        {% endfor %}
+
+
+    </div>
+
+{% endblock acontent %}

@@ -1,0 +1,25 @@
+{% extends 'store/AdminMain.html' %}
+{% load static %}
+{% block acontent %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-body">
+
+
+                <p>Are you sure you want to delete order id "{{ customer.user.username }}"?</p>
+
+                <form onsubmit="alert('user deleted successfully')" action="{% url 'deleteuser' customer.id %}"
+                      method="POST">
+
+                    {% csrf_token %}
+                    <a class="btn btn-warning" href="{% url 'userm' %}">Cancel</a>
+
+
+                    <input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock acontent %}

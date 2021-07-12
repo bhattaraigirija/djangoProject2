@@ -1,0 +1,31 @@
+{% extends 'store/AdminMain.html' %}
+{% load static %}
+{% block acontent %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-body">
+
+
+                <p>Are you sure you want to delete order id "{{ order.id }}"?</p>
+
+                <form onsubmit="alert('Order deleted successfully')"
+                      action="{% url 'deleteorder' orderitem.id order.id %}" method="POST">
+
+                    {% csrf_token %}
+                    <a class="btn btn-warning" href="{% url 'productm' %}">Cancel</a>
+
+
+                    <input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+                    {% for message in messages %}
+
+                    {% endfor %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock acontent %}

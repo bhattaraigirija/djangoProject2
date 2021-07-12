@@ -1,0 +1,37 @@
+{% extends 'store/AdminMain.html' %}
+{% load static %}
+{% block acontent %}
+    <div class="container">
+        <h2 class="text-center"><u> User details</u></h2><br>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">First name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Is staff?</th>
+                <th scope="col">Is superuser?</th>
+
+
+            </tr>
+            </thead>
+            <tbody style="background-color: #00bb00">
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ user.user.username }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.user.is_staff }}</td>
+                    <td>
+                        {{ user.user.is_superuser }}
+                        <a href="{% url 'deleteuser' user.id %}" class="btn btn-warning" style="float: right">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock acontent %}

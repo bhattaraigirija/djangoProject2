@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from .models import *
 import json
 import datetime
-from .forms import CreateUserForm
+from .forms import CreateUserForm, hospitalform
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -111,9 +111,6 @@ def register(request):
             if form.is_valid():
                 form.save()
                 user = form.cleaned_data.get('username')
-                # mail= form.cleaned_data.get('email')
-                # cutomer_obj=Customer.objects.create(user=request.user, name=user, email=mail)
-                # cutomer_obj.save()
 
                 messages.success(request, 'Account was created for ' + user)
 
@@ -212,3 +209,76 @@ def deleteproduct(request, pk):
         return redirect('productm')
 
     return render(request, 'store/deleteproduct.html', {'product': product})
+
+
+def hospitalm(request):
+    hospitals = Hospital.objects.all()
+
+    return render(request, 'store/hospitalm.html', {'hospitals': hospitals})
+
+
+def addhospital(request):
+    form = hospitalform(request.POST, request.FILES)
+    if request.method == 'POST':
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('hospitalm')
+
+    return render(request, 'store/hospitalform.html', {'form': form})
+
+
+def deletehospital(request, pk):
+    hospital = Hospital.objects.get(id=pk)
+    if request.method == "POST":
+        hospital.delete()
+        return redirect('hospitalm')
+
+    return render(request, 'store/deletehospital.html', {'hospital': hospital})
+
+
+def updatehospital(request, pk):
+    hospital = Hospital.objects.get(id=pk)
+    form = hospitalform(instance=hospital)
+    if request.method == 'POST':
+        form = hospitalform(request.POST, request.FILES, instance=hospital)
+
+        if form.is_valid():
+            form.save()
+            return redirect('hospitalm')
+
+    return render(request, 'store/updatehospital.html', {'form': form})
+
+
+def orderm(request):
+    orders = OrderItem.objects.all()
+    return render(request, 'store/orderm.html', {'orders': orders})
+
+
+def deleteorder(request, a, b):
+    orderitem = OrderItem.objects.get(id=a)
+    order = Order.objects.get(id=b)
+    if request.method == "POST":
+        orderitem.delete()
+        return redirect('orderm')
+
+    return render(request, 'store/deleteorder.html', {'order': order, 'orderitem': orderitem})
+
+
+def userm(request):
+    users = Customer.objects.all()
+
+    return render(request, 'store/userm.html', {'users': users})
+
+
+def deleteuser(request, pk):
+    customer = Customer.objects.get(id=pk)
+
+    if request.method == "POST":
+        customer.user.delete()
+        customer.delete()
+
+        return redirect('userm')
+
+    return render(request, 'store/deleteuser.html', {'customer': customer})

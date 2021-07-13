@@ -1,34 +1,35 @@
- {% extends 'store/AdminMain.html' %}
+{% extends 'store/AdminMain.html' %}
 {% load static %}
 {% block acontent %}
     <div class="container">
-  <h2 class="text-center"><u> Order details</u></h2><br>
-    <table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Product</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Made by</th>
-      <th scope="col">Is complete?</th>
-      <th scope="col">Transaction id </th>
+        <h2 class="text-center"><u> Order details</u></h2><br>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Made by</th>
+                <th scope="col">Is complete?</th>
+                <th scope="col">Transaction id</th>
 
 
-    </tr>
-  </thead>
-  <tbody style="background-color: #00bb00">
-   {% for order in orders %}
-    <tr>
-      <th scope="row">{{ forloop.counter }}</th>
-      <td>{{ order.Product.name }}</td>
-      <td>{{ order.quantity }}</td>
-      <td>{{order.order.customer}}</td>
-      <td>{{ order.order.complete }}</td>
-      <td>{{ order.order.transaction_id}} <a href="{% url 'deleteorder' order.id order.order.id %}" class="btn btn-warning" style="float: right">Delete</a></td>
-    </tr>
-  {% endfor %}
-  </tbody>
-    </table>
+            </tr>
+            </thead>
+            <tbody style="background-color: #00bb00">
+            {% for order in orders %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ order.Product.name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.order.customer }}</td>
+                    <td>{{ order.order.complete }}</td>
+                    <td>{{ order.order.transaction_id }} <a href="{% url 'deleteorder' order.id order.order.id %}"
+                                                            class="btn btn-warning" style="float: right">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
- {% endblock acontent %}
+{% endblock acontent %}

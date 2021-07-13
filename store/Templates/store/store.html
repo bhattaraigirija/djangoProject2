@@ -7,49 +7,47 @@
     <div class="row">
 
 
+        {% for product in products %}
 
 
-    {% for product in products %}
+            <div class="col-lg-4">
+                <img class="thumbnail" src="{{ product.image.url }}">
+                <div class="box-element product">
+                    <h6>{{ product.name }}</h6>
+                    <hr>
+                    {% if product.stock <= 0 %}
+                        <button disabled class="btn btn-outline-secondary ">
+                            Currently out of stock
+                        </button>
+                    {% else %}
+
+                        <button data-product="{{ product.id }}" data-action="add"
+                                class="btn btn-outline-secondary add-btn update-cart">
+                            Add to cart
+                        </button>
+                    {% endif %}
+
+                    <a href="#n{{ forloop.counter }}" data-toggle="collapse" class=" btn btn-outline-success btn-dark"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseExample">Info</a>
+                    <h4 style="display: inline-block; float: right;"> ${{ product.price }}</h4>
+                    <div class="collapse" id="n{{ forloop.counter }}">
+                        <p>{{ product.description }}</p>
 
 
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{{ product.image.url }}">
-            <div class="box-element product">
-                <h6>{{ product.name }}</h6>
-                <hr>
-                {% if product.stock <= 0 %}
-                    <button disabled class="btn btn-outline-secondary ">
-                        Currently out of stock
-                    </button>
-                {% else %}
-
-                    <button data-product="{{ product.id }}" data-action="add"
-                            class="btn btn-outline-secondary add-btn update-cart">
-                        Add to cart
-                    </button>
-                {% endif %}
-
-                <a href="#n{{ forloop.counter }}" data-toggle="collapse" class=" btn btn-outline-success btn-dark"
-                   role="button"
-                   aria-expanded="false" aria-controls="collapseExample">Info</a>
-                <h4 style="display: inline-block; float: right;"> ${{ product.price }}</h4>
-                <div class="collapse" id="n{{ forloop.counter }}">
-                    <p>{{ product.description }}</p>
-
+                    </div>
 
                 </div>
+
 
             </div>
 
 
-        </div>
 
 
 
-
-
-    {% endfor %}
+        {% endfor %}
+    </div>
 
 
 {% endblock content %}
-</div>

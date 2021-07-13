@@ -39,13 +39,13 @@
         <div id="log" class="form-inline my-2 my-lg-0">
 
             {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
-            {% if request.user.is_superuser %}
-            <a href="{% url 'administration' %}" class="btn btn-warning">Admin mode</a>
-            {% endif %}
+                <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'administration' %}" class="btn btn-warning">Admin mode</a>
+                {% endif %}
             {% else %}
-            <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
-            <a href="{% url 'register' %}" class="btn btn-warning">Register</a>
+                <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-warning">Register</a>
             {% endif %}
 
 
